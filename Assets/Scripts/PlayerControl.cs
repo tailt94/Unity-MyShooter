@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
+	public GameObject PlayerBulletGO;
+	public GameObject bulletPosition01;
+	public GameObject bulletPosition02;
 	public float speed;
 	// Use this for initialization
 	void Start () {
@@ -11,6 +14,17 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//fire bullet if the spacebar is pressed
+		if(Input.GetKeyDown("space")) {
+			//FIrst bullet
+			GameObject bullet01 = (GameObject) Instantiate(PlayerBulletGO);
+			bullet01.transform.position = bulletPosition01.transform.position; //set initial position	
+
+			//Second bullet
+			GameObject bullet02 = (GameObject) Instantiate(PlayerBulletGO);
+			bullet02.transform.position = bulletPosition02.transform.position; //set initial position	
+		}
+
 		//Return -1, 0 or 1 (left, no input, right)
 		float x = Input.GetAxisRaw ("Horizontal");
 		//Return -1, 0 or 1 (down, no input, rup)
