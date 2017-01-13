@@ -47,3 +47,5 @@ sysinfo.txt
 # Builds
 
 # End of https://www.gitignore.io/api/unity,unity
+Assets/TempResources/
+Assets/TempResources.meta
