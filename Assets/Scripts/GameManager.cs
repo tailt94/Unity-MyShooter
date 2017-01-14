@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject GameOverGO;
 	public GameObject scoreUITextGO;
 	public GameObject TimeCounterGO;
+	public GameObject GameTitleGO;
 
 	public enum GameManagerState {
 		Opening,
@@ -35,6 +36,9 @@ public class GameManager : MonoBehaviour {
 			GameOverGO.SetActive(false);
 			//Set play button active
 			playButton.SetActive(true);
+
+			//set game title visible
+			GameTitleGO.SetActive(true);
 			break;
 		case GameManagerState.Playing:
 			//Reset score
@@ -42,6 +46,9 @@ public class GameManager : MonoBehaviour {
 
 			//hide play button
 			playButton.SetActive (false);
+
+			//hide title
+			GameTitleGO.SetActive(false);
 
 			//set player visible and init player lives
 			playerShip.GetComponent<PlayerControl> ().Init ();
