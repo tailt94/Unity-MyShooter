@@ -1,13 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour {
+	public GameObject GameManagerGO;
 	public GameObject PlayerBulletGO;
 	public GameObject bulletPosition01;
 	public GameObject bulletPosition02;
 	public GameObject ExplosionGO;
 	public float speed;
+
+	//Reference to lives ui text
+	public Text LivesUIText;
+
+	const int MaxLives = 3;
+	int lives; //current lives
+
+	public void Init() {
+		lives = MaxLives;
+
+		//update lives UI text
+		LivesUIText.text = lives.ToString ();
+
+		//set this player object to active
+		gameObject.SetActive(true);
+	}
+
 	// Use this for initialization
 	void Start () {
 		
@@ -66,7 +85,19 @@ public class PlayerControl : MonoBehaviour {
 		//Collisiton between player ship - enemy ship or bullet
 		if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag")) {
 			PlayExplosion ();
-			Destroy (gameObject);
+
+			lives--;
+			LivesUIText.text = lives.ToString (); 
+
+			if (lives == 0) {
+				//Destroy (gameObject);
+
+				//hange GamManagerState to GameOver 
+				GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
+
+				//hide player ship
+				gameObject.SetActive(false);
+			}
 		}
 	}
 
