@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour {
 	public GameObject ExplosionGO;
+	public GameObject scoreUITextGO;
 	float speed;
 	// Use this for initialization
 	void Start () {
 		speed = 2f;
+
+		scoreUITextGO = GameObject.FindGameObjectWithTag ("ScoreTextTag");
 	}
 	
 	// Update is called once per frame
@@ -34,6 +37,10 @@ public class EnemyControl : MonoBehaviour {
 		//Collisiton between player ship - enemy ship or bullet
 		if ((col.tag == "PlayerShipTag") || (col.tag == "PlayerBulletTag")) {
 			PlayExplosion ();
+
+			//add 10 points to score
+			scoreUITextGO.GetComponent<GameScore>().Score += 10;
+
 			Destroy (gameObject);
 		}
 	}
