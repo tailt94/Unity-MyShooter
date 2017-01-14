@@ -49,6 +49,9 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void ScheduleEnemySpawner() {
+		//reset max soawn rate
+		maxSpawnRateInSeconds = 5f;
+
 		Invoke ("SpawnEnemy", maxSpawnRateInSeconds);
 
 		//Increase spawn rate every 30 seconds;
