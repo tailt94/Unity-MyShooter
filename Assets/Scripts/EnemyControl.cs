@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyControl : MonoBehaviour {
+	public GameObject ExplosionGO;
 	float speed;
 	// Use this for initialization
 	void Start () {
@@ -27,5 +28,18 @@ public class EnemyControl : MonoBehaviour {
 		if (transform.position.y < min.y) {
 			Destroy (gameObject);
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		//Collisiton between player ship - enemy ship or bullet
+		if ((col.tag == "PlayerShipTag") || (col.tag == "PlayerBulletTag")) {
+			PlayExplosion ();
+			Destroy (gameObject);
+		}
+	}
+
+	void PlayExplosion() {
+		GameObject explosion = (GameObject)Instantiate (ExplosionGO);
+		explosion.transform.position = transform.position;
 	}
 }

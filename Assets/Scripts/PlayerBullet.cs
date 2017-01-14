@@ -28,4 +28,11 @@ public class PlayerBullet : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		//Collisiton between player ship - enemy ship or bullet
+		if (col.tag == "EnemyShipTag") {
+			Destroy (gameObject);
+		}
+	}
 }

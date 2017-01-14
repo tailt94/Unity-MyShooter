@@ -6,6 +6,7 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject PlayerBulletGO;
 	public GameObject bulletPosition01;
 	public GameObject bulletPosition02;
+	public GameObject ExplosionGO;
 	public float speed;
 	// Use this for initialization
 	void Start () {
@@ -61,4 +62,16 @@ public class PlayerControl : MonoBehaviour {
 		transform.position = currPos;
 	}
 
+	void OnTriggerEnter2D(Collider2D col) {
+		//Collisiton between player ship - enemy ship or bullet
+		if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag")) {
+			PlayExplosion ();
+			Destroy (gameObject);
+		}
+	}
+
+	void PlayExplosion() {
+		GameObject explosion = (GameObject)Instantiate (ExplosionGO);
+		explosion.transform.position = transform.position;
+	}
 }
