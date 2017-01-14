@@ -40,7 +40,8 @@ public class PlayerControl : MonoBehaviour {
 		//fire bullet if the spacebar is pressed
 		if(Input.GetKeyDown("space")) {
 			//play sound
-
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.Play ();
 			//FIrst bullet
 			GameObject bullet01 = (GameObject) Instantiate(PlayerBulletGO);
 			bullet01.transform.position = bulletPosition01.transform.position; //set initial position	
