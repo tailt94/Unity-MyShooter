@@ -30,8 +30,8 @@ public class PlayerBullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		//Collisiton between player ship - enemy ship or bullet
-		if (col.tag == "EnemyShipTag") {
+		//Collisiton between player bullet - enemy ship or meteor
+		if (col.tag == "EnemyShipTag" || col.tag == "MeteorTag") {
 			Destroy (gameObject);
 		}
 	}
