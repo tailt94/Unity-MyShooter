@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playButton;
 	public GameObject playerShip;
 	public GameObject enemySpawner;
+	public GameObject meteorSpawner;
 	public GameObject GameOverGO;
 	public GameObject scoreUITextGO;
 	public GameObject TimeCounterGO;
@@ -56,6 +57,9 @@ public class GameManager : MonoBehaviour {
 			//start enemy spawner
 			enemySpawner.GetComponent<EnemySpawner> ().ScheduleEnemySpawner ();
 
+			//start meteor spawner
+			meteorSpawner.GetComponent<MeteorSpawner>().ScheduleMeteorSpawner();
+
 			//start the time counter
 			TimeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
 			break;
@@ -64,6 +68,8 @@ public class GameManager : MonoBehaviour {
 			TimeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
 			//Stop enemy spawner
 			enemySpawner.GetComponent<EnemySpawner> ().UnscheduleEnemySpawner ();
+			//Stop meteor spawner
+			meteorSpawner.GetComponent<MeteorSpawner> ().UnscheduleMeteorSpawner ();
 			//Display GameOver UI	
 			GameOverGO.SetActive(true);
 			//Change game manager state to opening

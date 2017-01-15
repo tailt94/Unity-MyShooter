@@ -38,22 +38,11 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//fire bullet if the spacebar is pressed
-		if(Input.GetKeyDown("space")) {
-			//play sound
-			AudioSource audio = GetComponent<AudioSource>();
-			audio.Play ();
-			//FIrst bullet
-			GameObject bullet01 = (GameObject) Instantiate(PlayerBulletGO);
-			bullet01.transform.position = bulletPosition01.transform.position; //set initial position	
-
-			//Second bullet
-			GameObject bullet02 = (GameObject) Instantiate(PlayerBulletGO);
-			bullet02.transform.position = bulletPosition02.transform.position; //set initial position	
-		}
+		ShootBullets("space");
 
 		//Return -1, 0 or 1 (left, no input, right)
 		float x = Input.GetAxisRaw ("Horizontal");
-		//Return -1, 0 or 1 (down, no input, rup)
+		//Return -1, 0 or 1 (down, no input, up)
 		float y = Input.GetAxisRaw ("Vertical");
 
 		//get a direction and normalize to unit vector
@@ -62,6 +51,8 @@ public class PlayerControl : MonoBehaviour {
 		Move (direction); 
 	}
 
+
+	//method to move player ship
 	void Move(Vector2 direction) {
 		//Limit to  player movement (left, right, top, bottom edge of screen)
 		Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0,0)); //bottom-left point of screen
@@ -87,12 +78,34 @@ public class PlayerControl : MonoBehaviour {
 		transform.position = currPos;
 	}
 
+	//method to shoot bullet
+	void ShootBullets(string keyInput) {
+		if(Input.GetKeyDown(keyInput)) {
+			//play sound
+			AudioSource audio = GetComponent<AudioSource>();
+			audio.Play ();
+			//FIrst bullet
+			GameObject bullet01 = (GameObject) Instantiate(PlayerBulletGO);
+			bullet01.transform.position = bulletPosition01.transform.position; //set initial position	
+
+			//Second bullet
+			GameObject bullet02 = (GameObject) Instantiate(PlayerBulletGO);
+			bullet02.transform.position = bulletPosition02.transform.position; //set initial position	
+		}
+	}
+
 	void OnTriggerEnter2D(Collider2D col) {
-		//Collisiton between player ship - enemy ship or bullet
-		if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag")) {
+		//Collisiton between player ship - enemy ship or bullet or meteor
+		if ((col.tag == "EnemyShipTag") || (col.tag == "EnemyBulletTag") || (col.tag == "MeteorTag")) {
 			PlayExplosion ();
 
-			lives--;
+			//Lives = 0 if player hit meteor
+			if (col.tag == "MeteorTag") {
+				lives = 0;
+			} else {
+				lives--;
+			}
+				
 			LivesUIText.text = lives.ToString (); 
 
 			if (lives == 0) {

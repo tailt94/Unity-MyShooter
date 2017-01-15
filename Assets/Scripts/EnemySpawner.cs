@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
 	public GameObject EnemyGO;
-	float maxSpawnRateInSeconds = 5f;
+	float maxSpawnRateInSeconds = 4f;
 	// Use this for initialization
 	void Start () {
 		
@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour {
 		Invoke ("SpawnEnemy", maxSpawnRateInSeconds);
 
 		//Increase spawn rate every 30 seconds;
-		InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
+		InvokeRepeating("IncreaseSpawnRate", 0f, 20f);
 	}
 
 	public void UnscheduleEnemySpawner() {
